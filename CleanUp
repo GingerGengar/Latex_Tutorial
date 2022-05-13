@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rm *.aux
+rm *.fls
+rm *.fdb_latexmk
+rm *.log
+rm *.pdf
+rm *.synctex.gz
+rm texput.log
+rm *.out
+rm *.toc
+
