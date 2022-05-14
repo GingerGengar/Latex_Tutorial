@@ -31,8 +31,8 @@
 	basicstyle=\ttfamily\footnotesize,
 	keepspaces=true,                 
 	numbersep=5pt,                  
-	showspaces=true,               
-	showtabs=true,                  
+%	showspaces=true,               
+%	showtabs=true,                  
 	tabsize=2
 }
 
@@ -844,7 +844,7 @@ The \texttt{LaTex} code above, produces the output shown below,
 $$\begin{bmatrix}
 v_{1} \\ v_{2} \\ v_{3}
 \end{bmatrix}$$
-To make the rows have a larger separation between them, one can use \texttt{\textbackslash \textbackslash \~ \textbackslash \textbackslash} instead of just \texttt{\textbackslash \textbackslash}. Here is an example,
+To make the rows have a larger separation between them, one can use \texttt{\textbackslash \textbackslash \texttildelow \textbackslash \textbackslash} instead of just \texttt{\textbackslash \textbackslash}. Here is an example,
 $$\begin{bmatrix}
 v_{1} \\~\\ v_{2} \\~\\ v_{3}
 \end{bmatrix}$$
@@ -977,12 +977,12 @@ $$\begin{bmatrix}
 %Seperator
 \section{Document Organization}
 \begin{comment}
-
 \begin{lstlisting}[language=tex]
 \end{lstlisting}
 The \texttt{LaTex} code above, produces the output shown below,
-
 \end{comment}
+If a document gets sufficiently large, putting all the content together without organization confuses the reader. There are a few important commands for text writing. If $2$ lines of text is separated by more than a single line of space in between, \texttt{LaTex} would interpret that as a command to put a newline character in between the lines of text. Alternatively, one can invoke the \texttt{\textbackslash \textbackslash} command.
+\\~\\If one wants more spacing between the lines, one can invoke the newline command successively like this \texttt{\textbackslash \textbackslash \texttildelow \textbackslash \textbackslash}. The author can chain the newline command more more than just $2$ times, like this: \texttt{\textbackslash \textbackslash \texttildelow \textbackslash \textbackslash \texttildelow \textbackslash \textbackslash } 
 
 %Seperator
 %Seperator
@@ -991,6 +991,19 @@ The \texttt{LaTex} code above, produces the output shown below,
 \subsection{Organizational Hierarchy}
 \begin{comment}
 \end{comment}
+The \texttt{LaTex} typesetting system recognizes $7$ levels of organizational hierarchy, those are listed below from the most general (large) to the most specific (small):
+\begin{enumerate}
+\item \texttt{part}: To use, invoke command \texttt{\textbackslash part\{Enter Name of Part\}} 
+\item \texttt{chapter}: To use, invoke command \texttt{\textbackslash chapter\{Enter Name of chapter\}} 
+\item \texttt{section}: To use, invoke command \texttt{\textbackslash section\{Enter Name of Section\}} 
+\item \texttt{subsection}: To use, invoke command \texttt{\textbackslash subsection\{Enter Name of Subsection\}} 
+\item \texttt{subsubsection}: To use, invoke command \texttt{\textbackslash subsubsection\{Enter Name of subsubsection\}}
+\item \texttt{paragraph}: To use, invoke command \texttt{\textbackslash paragraph\{Enter Name of paragraph\}}
+\item \texttt{subparagraph}: To use, invoke command \texttt{\textbackslash subparagraph\{Enter Name of subparagraph\}}
+\end{enumerate}
+Below shows an example of a document that contains all $7$ organizational structures. You are encouraged to compile the document for yourself to see the true appearance of the document.
+\lstinputlisting[language=tex]{Organization.tex}
+Personally when writing documents, I like to begin from the \texttt{section} level and expand the organizational tree to be more general or more specific on an as-needed basis. Usually, I would stop at the \texttt{subsubsection} level at the most specific and would stop at the \texttt{part} level for large documents. For Smaller documents, I would stop at the \texttt{section} level as the most general organizational structure.
 
 %Seperator
 %Seperator
@@ -999,6 +1012,10 @@ The \texttt{LaTex} code above, produces the output shown below,
 \subsection{Adding Titles}
 \begin{comment}
 \end{comment}
+The Title commands are added after the \texttt{\textbackslash begin\{document\}} command. Below shows an example of how to make titles in a new document:
+\lstinputlisting[language=tex]{Titles.tex}
+Let us analyze the commands. The \texttt{\textbackslash title} command specifies the main message of the title. The \texttt{\textbackslash author} and \texttt{\textbackslash date} commands are self explanatory. The \texttt{\textbackslash maketitle} command tells the compiler to truly make the title. If this command is absent, the title would not be printed. This gives the author an option of "showing" or "hiding" the title of the document. To "show" the title of the document, the author just has to invoke the \texttt{\textbackslash maketitle} command. To "hide" the title, just comment the \texttt{\textbackslash maketitle} command out.
+\\~\\Try commenting out the various parts of the title command to see which parts of the title the commands correspond to.
 
 %Seperator
 %Seperator
@@ -1007,6 +1024,8 @@ The \texttt{LaTex} code above, produces the output shown below,
 \subsection{Table of Contents}
 \begin{comment}
 \end{comment}
+Table of content generation in \texttt{LaTex} is incredibly easy. Just invoke the command \texttt{\textbackslash tableofcontents} wherever you wish to write the table of contents. Below shows an example of how to use the \texttt{\textbackslash tableofcontents} command from earlier,
+\lstinputlisting[language=tex]{Table_Of_Content.tex}
 
 %Seperator
 %Seperator
@@ -1024,6 +1043,26 @@ The \texttt{LaTex} code above, produces the output shown below,
 \subsection{Image Insertion}
 \begin{comment}
 \end{comment}
+Image insertion can be done using the \texttt{graphicx} package. To load the package, use the following command,
+\begin{lstlisting}[language=tex]
+\usepackage{graphicx}
+\end{lstlisting}
+The rest of the exmaples here assumes that an image named \texttt{image.png} is located on the same directory as the \texttt{.tex} file. The example below is a simple way to include images,
+\begin{lstlisting}
+\\~\\\includegraphics[scale=0.3]{image.png}
+\end{lstlisting}
+The size of the image that is printed can be rescaled by changing the \texttt{scale} from $0.3$ to say $0.4$. One is free to change the scaling to make the image size display to one's preference. For most documents, this should be sufficient, but sometimes we need to show documents with captions and perhaps refer to it later. The example below shows how to do this,
+\begin{lstlisting}[language=tex]
+\begin{figure}[H]\centering
+\includegraphics[scale=0.3]{image.png}
+\caption{This is an image}
+\label{image labelling}
+\end{figure}
+\end{lstlisting}
+The example above requires the \texttt{float} package though. That package can be loaded like any other package with the \texttt{\textbackslash usepackage} command. Below is the command to load the \texttt{float} package:
+\begin{lstlisting}[language=tex]
+\usepackage{float}
+\end{lstlisting}
 
 %Seperator
 %Seperator
@@ -1032,6 +1071,15 @@ The \texttt{LaTex} code above, produces the output shown below,
 \subsection{Programming Insertion}
 \begin{comment}
 \end{comment}
+To insert programs, one can use the \texttt{listings} package. To load the \texttt{listings} package,
+\begin{lstlisting}[language=tex]
+\usepackage{listings}
+\end{lstlisting}
+To include direct computer code, we can start a \texttt{listings} environment. Here is an example of including a program inside a \texttt{LaTex} document,
+\lstinputlisting[language=tex]{Listings.tex}
+The resulting listing however looks quite ugly. So there are a few parameters we can change inside the \texttt{listings} package that can make the listings look nicer. Here is an improved version:
+\lstinputlisting[language=tex]{Improved_Listings.tex}
+It is important to note that the example above uses a new package, \texttt{xcolor}. \texttt{xcolor} is used to describe colors such as \texttt{codegreen} and \texttt{codegray} and so on.
 
 %Seperator
 %Seperator
